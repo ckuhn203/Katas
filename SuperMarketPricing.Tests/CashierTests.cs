@@ -6,17 +6,7 @@ namespace SuperMarketPricing.Tests
 {
     [TestClass]
     public class CashierTests
-    {
-        private List<IPricingStrategy> _pricingStrategies;
-        private Cashier _cashier;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _pricingStrategies = GetPricingStrategies();
-            _cashier = new Cashier(GetPricingStrategies());
-        }
-
+    { 
         [TestMethod]
         public void Cashier_WhenNoProducts_PriceIsZero()
         {
