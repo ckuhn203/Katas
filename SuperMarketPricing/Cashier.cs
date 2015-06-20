@@ -17,10 +17,13 @@ namespace SuperMarketPricing
 
         public double Checkout(IList<Sku> products)
         {
-            var aProducts = products.Where(p => p == 'A');
-            var strategy = pricingStrategies.Where(s => s.Sku == 'A').First();
+            var aStrat = pricingStrategies.Where(s => s.Sku == 'A').First();
+            var aProducts = products.Where(p => p == aStrat.Sku);
 
-            return strategy.GetPrice(aProducts.Count());
+            var bStrat = pricingStrategies.Where(s => s.Sku == 'B').First();
+            var bProducts = products.Where(p => p == bStrat.Sku);
+
+            return aStrat.GetPrice(aProducts.Count()) + bStrat.GetPrice(bProducts.Count());
         }
     }
 }

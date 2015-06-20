@@ -83,9 +83,52 @@ namespace SuperMarketPricing.Tests
             Assert.AreEqual(260, price);
         }
 
+        [TestMethod]
+        public void Cashier_OneB_Is30()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(30, price);
+        }
+
+        [TestMethod]
+        public void Cashier_TwoBIs45()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'B', 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(45, price);
+        }
+
+        [TestMethod]
+        public void Cashier_ThreeBIs75()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'B', 'B', 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(75, price);
+        }
+
+        public void Cashier_FourBIs90()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'B', 'B', 'B', 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(90, price);
+        }
+
         private static List<IPricingStrategy> GetPricingStrategies()
         {
-            return new List<IPricingStrategy>() { new PricingStategyA() };
+            return new List<IPricingStrategy>() { new PricingStategyA(), new PricingStrategyB() };
         }
     }
 }
