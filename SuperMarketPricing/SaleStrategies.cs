@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SuperMarketPricing
+﻿namespace SuperMarketPricing
 {
     public abstract class SaleStrategy : IPricingStrategy
     {

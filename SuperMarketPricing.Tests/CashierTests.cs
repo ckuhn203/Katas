@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SuperMarketPricing.Tests
@@ -138,9 +137,59 @@ namespace SuperMarketPricing.Tests
             Assert.AreEqual(95, price);
         }
 
+        [TestMethod]
+        public void Cashier_OneC_Is20()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'C' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(20, price);
+        }
+
+        [TestMethod]
+        public void Cashier_TwoC_Is20()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'C', 'C' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(40, price);
+        }
+
+        [TestMethod]
+        public void Cashier_OneD_Is15()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'D' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(15, price);
+        }
+
+        [TestMethod]
+        public void Cashier_TwoD_Is30()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'D', 'D' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(30, price);
+        }
+
         private static List<IPricingStrategy> GetPricingStrategies()
         {
-            return new List<IPricingStrategy>() { new PricingStategyA(), new PricingStrategyB() };
+            return new List<IPricingStrategy>()
+            {
+                new PricingStategyA(),
+                new PricingStrategyB(),
+                new PricingStrategyC(),
+                new PricingStrategyD()
+            };
         }
     }
 }
