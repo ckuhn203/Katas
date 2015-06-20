@@ -126,6 +126,28 @@ namespace SuperMarketPricing.Tests
             Assert.AreEqual(90, price);
         }
 
+        [TestMethod]
+        public void Cashier_OneAOneB_Is80()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'A', 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(80, price);
+        }
+
+        [TestMethod]
+        public void Cashier_OneATwoB_OutOfOrder_Is95()
+        {
+            var cashier = new Cashier(GetPricingStrategies());
+            var products = new List<Sku>() { 'B', 'A', 'B' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(95, price);
+        }
+
         private static List<IPricingStrategy> GetPricingStrategies()
         {
             return new List<IPricingStrategy>() { new PricingStategyA(), new PricingStrategyB() };
