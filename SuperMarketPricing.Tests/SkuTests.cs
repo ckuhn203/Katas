@@ -7,7 +7,7 @@ namespace SuperMarketPricing.Tests
     public class SkuTests
     {
         [TestMethod]
-        public void ImplicitCastFromCharToSku()
+        public void Sku_ImplicitCastFromCharToSku()
         {
             var sku = new Sku('A');
             sku = 'B';
@@ -16,7 +16,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void ImplicitCastFromSkuToSku()
+        public void Sku_ImplicitCastFromSkuToSku()
         {
             var original = new Sku('A');
             var expected = new Sku('B');
@@ -27,7 +27,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void ExplicitCastFromSkuToChar()
+        public void Sku_ExplicitCastFromSkuToChar()
         {
             var sku = new Sku('A');
 
@@ -35,7 +35,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void ExplicitCastFromCharToSku()
+        public void Sku_ExplicitCastFromCharToSku()
         {
             var sku = new Sku('A');
 
@@ -43,7 +43,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void CharAndSkuHaveSameHashCode()
+        public void Sku_CharAndSkuHaveSameHashCode()
         {
             var sku = new Sku('A');
             var chr = 'A';
@@ -52,7 +52,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void SkuAndSkuHaveSameHashCode()
+        public void Sku_SkuAndSkuHaveSameHashCode()
         {
             var sku1 = new Sku('A');
             var sku2 = new Sku('A');
@@ -61,7 +61,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void CanCreateNewSkuFromExisting()
+        public void Sku_CanCreateNewSkuFromExisting()
         {
             var sku1 = new Sku('A');
             var sku2 = new Sku(sku1);
@@ -70,7 +70,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void CanUseEqualsOperator()
+        public void Sku_CanUseEqualsOperator()
         {
             Sku sku1 = 'A';
             Sku sku2 = 'A';
@@ -79,7 +79,7 @@ namespace SuperMarketPricing.Tests
         }
 
         [TestMethod]
-        public void TwoDifferentSkusAreUnEqual()
+        public void Sku_TwoDifferentSkusAreUnEqual()
         {
             Sku sku1 = 'A';
             Sku sku2 = 'B';
