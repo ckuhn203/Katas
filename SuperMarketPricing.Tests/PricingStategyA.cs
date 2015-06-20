@@ -13,12 +13,15 @@ namespace SuperMarketPricing.Tests
                 return 0;
             }
 
-            if (count >= 3)
+            double result = 0;
+
+            while (count >= 3)
             {
-                return 130 + GetPrice(count - 3);
+                result = result + 130;
+                count = count - 3;
             }
 
-            return 50 * count;
+            return result + (50 * count);
         }
     }
 }
