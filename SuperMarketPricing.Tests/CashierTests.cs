@@ -181,14 +181,42 @@ namespace SuperMarketPricing.Tests
             Assert.AreEqual(30, price);
         }
 
+        [TestMethod]
+        public void Cashier_PercentOffStrategy()
+        {
+            var strategies = GetPricingStrategies();
+
+            var cashier = new Cashier(strategies);
+            var products = new List<Sku>() { 'E' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(90, price);
+        }
+
+        [TestMethod]
+        public void Cashier_PercentOffStrategy_MultipleItems()
+        {
+            var strategies = GetPricingStrategies();
+
+            var cashier = new Cashier(strategies);
+            var products = new List<Sku>() { 'F', 'F' };
+
+            var price = cashier.Checkout(products);
+
+            Assert.AreEqual(4.50, price);
+        }
+
         private static List<IPricingStrategy> GetPricingStrategies()
         {
             return new List<IPricingStrategy>()
             {
                 new XForYStrategy('A', 50, 130, 3),
                 new XForYStrategy('B', 30, 45, 2),
-                new RegularStrategy('C',20),
-                new RegularStrategy('D',15)
+                new RegularStrategy('C', 20),
+                new RegularStrategy('D', 15),
+                new PercentOffStrategy('E', 100, 10),
+                new PercentOffStrategy('F', 2.50, 10)
             };
         }
     }

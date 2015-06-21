@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Cashier.cs" />
     <Compile Include="IPricingStrategy.cs" />
+    <Compile Include="PercentOffStrategy.cs" />
     <Compile Include="RegularStrategy.cs" />
     <Compile Include="XForYStrategy.cs" />
     <Compile Include="Program.cs" />
