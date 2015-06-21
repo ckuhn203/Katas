@@ -2,17 +2,18 @@
 {
     public class XForYStrategy : IPricingStrategy
     {
+        private double _pricePerOne;
+        private double _pricePerX;
+        private int _x;
+
         public Sku Sku { get; }
-        protected double PricePerOne { get; }
-        protected double PricePerX { get; }
-        protected int X { get; }
 
         public XForYStrategy(Sku sku, double price, double pricePerX, int x)
         {
             Sku = sku;
-            PricePerOne = price;
-            PricePerX = pricePerX;
-            X = x;
+            _pricePerOne = price;
+            _pricePerX = pricePerX;
+            _x = x;
         }
 
         public double GetPrice(int count)
@@ -24,13 +25,13 @@
 
             double result = 0;
 
-            while (count >= X)
+            while (count >= _x)
             {
-                result = result + PricePerX;
-                count = count - X;
+                result = result + _pricePerX;
+                count = count - _x;
             }
 
-            return result + (PricePerOne * count);   
+            return result + (_pricePerOne * count);   
         }
     }
 }
