@@ -9,13 +9,10 @@ namespace SuperMarketPricing
     {
         private int _percentOff;
         private double _price;
-
-        public Sku Sku { get; }
-
-        /// <param name="sku">The <see cref="Sku"/> to that uses this strategy.</param>
+        
         /// <param name="price">The regular every day price.</param>
         /// <param name="percentOff">Whole number from 1 to 99.</param>
-        public PercentOffStrategy(Sku sku, double price, int percentOff)
+        public PercentOffStrategy(double price, int percentOff)
         {
             if (percentOff <= 0)
             {
@@ -34,8 +31,6 @@ namespace SuperMarketPricing
 
             _percentOff = percentOff;
             _price = price;
-   
-            Sku = sku;
         }
 
         public double GetPrice(int count)

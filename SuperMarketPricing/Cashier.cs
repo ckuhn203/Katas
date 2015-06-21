@@ -5,9 +5,9 @@ namespace SuperMarketPricing
 {
     public class Cashier
     {
-        private List<IPricingStrategy> _pricingStrategies;
+        private Dictionary<Sku, IPricingStrategy> _pricingStrategies;
 
-        public Cashier(List<IPricingStrategy> pricingStrategies)
+        public Cashier(Dictionary<Sku, IPricingStrategy> pricingStrategies)
         {
             _pricingStrategies = pricingStrategies;
         }
@@ -17,8 +17,8 @@ namespace SuperMarketPricing
             double result = 0;
             foreach(var strat in _pricingStrategies)
             {
-                var prods = products.Where(p => p == strat.Sku);
-                result = result + strat.GetPrice(prods.Count());
+                var prods = products.Where(p => p == strat.Key);
+                result = result + strat.Value.GetPrice(prods.Count());
             }
 
             return result;

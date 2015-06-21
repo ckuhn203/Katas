@@ -9,9 +9,7 @@ namespace SuperMarketPricing
     {
         private double _price;
 
-        public Sku Sku { get; }
-
-        public RegularStrategy(Sku sku, double price)
+        public RegularStrategy(double price)
         {
             if (price < 0)
             {
@@ -19,7 +17,6 @@ namespace SuperMarketPricing
             }
 
             _price = price;
-            Sku = sku;
         }
 
         public double GetPrice(int count)

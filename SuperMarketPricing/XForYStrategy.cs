@@ -9,16 +9,12 @@
         private double _pricePerOne;
         private double _pricePerX;
         private int _x;
-
-        public Sku Sku { get; }
-
-        /// <param name="sku">The <see cref="Sku"/> to use this strategy.</param>
+        
         /// <param name="price">The regular every day price.</param>
         /// <param name="pricePerX">Price per every <paramref name="x"/> items purchased.</param>
         /// <param name="x">The number of items that must be purchased to get the discount.</param>
-        public XForYStrategy(Sku sku, double price, double pricePerX, int x)
+        public XForYStrategy(double price, double pricePerX, int x)
         {
-            Sku = sku;
             _pricePerOne = price;
             _pricePerX = pricePerX;
             _x = x;
