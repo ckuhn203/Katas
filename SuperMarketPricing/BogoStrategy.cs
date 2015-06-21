@@ -2,18 +2,27 @@
 
 namespace SuperMarketPricing
 {
+    /// <summary>
+    /// Buy One Get One pricing strategy.
+    /// </summary>
     public class BogoStrategy : BuyXGetOneStrategy
     {
+        /// <param name="price">Regular every day price.</param>
         public BogoStrategy(double price)
             : base(price, 2)
         { }
     }
 
+    /// <summary>
+    /// Buy X Get One pricing strategy.
+    /// </summary>
     public class BuyXGetOneStrategy : IPricingStrategy
     {
         private double _price;
         private int _xToBuy;
 
+        /// <param name="price">Regular everyday price.</param>
+        /// <param name="xToBuy">Number of items that must be purchased to get the discount.</param>
         public BuyXGetOneStrategy(double price, int xToBuy)
         {
             if (price < 0)
