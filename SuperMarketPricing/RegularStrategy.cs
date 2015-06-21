@@ -1,5 +1,8 @@
 ﻿namespace SuperMarketPricing
 {
+    /// <summary>
+    /// Everyday pricing strategy for non-sale items.
+    /// </summary>
     public class RegularStrategy : IPricingStrategy
     {
         private double _price;

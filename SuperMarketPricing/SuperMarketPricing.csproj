@@ -46,7 +46,7 @@
     <Compile Include="Cashier.cs" />
     <Compile Include="IPricingStrategy.cs" />
     <Compile Include="RegularStrategy.cs" />
-    <Compile Include="SaleStrategies.cs" />
+    <Compile Include="XForYStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sku.cs" />
