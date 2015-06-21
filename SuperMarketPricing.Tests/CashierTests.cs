@@ -185,10 +185,10 @@ namespace SuperMarketPricing.Tests
         {
             return new List<IPricingStrategy>()
             {
-                new PricingStategyA(),
-                new PricingStrategyB(),
-                new PricingStrategyC(),
-                new PricingStrategyD()
+                new XForYStrategy('A', 50, 130, 3),
+                new XForYStrategy('B', 30, 45, 2),
+                new RegularStrategy('C',20),
+                new RegularStrategy('D',15)
             };
         }
     }

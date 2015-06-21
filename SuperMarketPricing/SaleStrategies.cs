@@ -1,11 +1,19 @@
 ﻿namespace SuperMarketPricing
 {
-    public abstract class SaleStrategy : IPricingStrategy
+    public class XForYStrategy : IPricingStrategy
     {
-        public abstract Sku Sku { get; }
-        protected abstract double PricePerOne { get; }
-        protected abstract double PricePerX { get; }
-        protected abstract int X { get; }
+        public Sku Sku { get; }
+        protected double PricePerOne { get; }
+        protected double PricePerX { get; }
+        protected int X { get; }
+
+        public XForYStrategy(Sku sku, double price, double pricePerX, int x)
+        {
+            Sku = sku;
+            PricePerOne = price;
+            PricePerX = pricePerX;
+            X = x;
+        }
 
         public double GetPrice(int count)
         {
@@ -24,21 +32,5 @@
 
             return result + (PricePerOne * count);   
         }
-    }
-
-    public class PricingStategyA : SaleStrategy
-    {
-        public override Sku Sku { get; } = 'A';
-        protected override double PricePerOne { get; } = 50;
-        protected override double PricePerX { get; } = 130;
-        protected override int X { get; } = 3;
-    }
-
-    public class PricingStrategyB : SaleStrategy
-    {
-        public override Sku Sku { get; } = 'B';
-        protected override double PricePerOne { get; } = 30;
-        protected override double PricePerX { get; } = 45;
-        protected override int X { get; } = 2;
     }
 }
