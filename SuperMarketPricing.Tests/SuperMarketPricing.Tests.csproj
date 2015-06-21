@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashierTests.cs" />
     <Compile Include="PercentOffStrategyTests.cs" />
+    <Compile Include="BogoStrategyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperMarketPricing\SuperMarketPricing.csproj">

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BogoStrategy.cs" />
     <Compile Include="Cashier.cs" />
     <Compile Include="IPricingStrategy.cs" />
     <Compile Include="PercentOffStrategy.cs" />
