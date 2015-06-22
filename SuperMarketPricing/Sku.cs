@@ -2,7 +2,7 @@
 {
     public struct Sku
     {
-        private char _value;
+        private readonly char _value;
 
         public Sku(char value)
         {
