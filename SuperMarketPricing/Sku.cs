@@ -1,4 +1,6 @@
-﻿namespace SuperMarketPricing
+﻿using System;
+
+namespace SuperMarketPricing
 {
     public struct Sku
     {
@@ -14,14 +16,14 @@
             _value = sku._value;
         }
 
-        public static implicit operator Sku(char v)
-        {
-            return new Sku(v);
-        }
-
         public static explicit operator char (Sku v)
         {
             return v._value;
+        }
+
+        public static explicit operator Sku(char v)
+        {
+            return new Sku(v);
         }
 
         public static bool operator ==(Sku sku1, Sku sku2)

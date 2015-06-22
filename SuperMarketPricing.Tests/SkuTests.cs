@@ -7,15 +7,6 @@ namespace SuperMarketPricing.Tests
     public class SkuTests
     {
         [TestMethod]
-        public void Sku_ImplicitCastFromCharToSku()
-        {
-            var sku = new Sku('A');
-            sku = 'B';
-
-            Assert.AreEqual('B', sku);
-        }
-
-        [TestMethod]
         public void Sku_ImplicitCastFromSkuToSku()
         {
             var original = new Sku('A');
@@ -24,6 +15,7 @@ namespace SuperMarketPricing.Tests
             original = expected;
 
             Assert.AreEqual(expected, original);
+            Assert.AreNotSame(expected, original);
         }
 
         [TestMethod]
@@ -72,8 +64,8 @@ namespace SuperMarketPricing.Tests
         [TestMethod]
         public void Sku_CanUseEqualsOperator()
         {
-            Sku sku1 = 'A';
-            Sku sku2 = 'A';
+            Sku sku1 = new Sku('A');
+            Sku sku2 = new Sku('A');
 
             Assert.IsTrue(sku1 == sku2);
         }
@@ -81,8 +73,8 @@ namespace SuperMarketPricing.Tests
         [TestMethod]
         public void Sku_TwoDifferentSkusAreUnEqual()
         {
-            Sku sku1 = 'A';
-            Sku sku2 = 'B';
+            Sku sku1 = new Sku('A');
+            Sku sku2 = new Sku('B');
 
             Assert.AreNotEqual(sku1, sku2);
         }

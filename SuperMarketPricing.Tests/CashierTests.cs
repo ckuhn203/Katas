@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace SuperMarketPricing.Tests
 {
@@ -21,7 +22,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneA_Is50()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A' };
+            var products = new List<Sku>() { new Sku('A') };
 
             var price = cashier.Checkout(products);
 
@@ -32,7 +33,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_TwoA_Is100()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A', 'A' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('A'), 2));
 
             var price = cashier.Checkout(products);
 
@@ -43,7 +44,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_ThreeA_Is130()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A', 'A', 'A' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('A'), 3));
 
             var price = cashier.Checkout(products);
 
@@ -54,7 +55,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_FourA_Is180()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A', 'A', 'A', 'A' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('A'), 4));
 
             var price = cashier.Checkout(products);
 
@@ -65,7 +66,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_SixA_Is260()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A', 'A', 'A', 'A', 'A', 'A' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('A'), 6));
 
             var price = cashier.Checkout(products);
 
@@ -76,7 +77,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneB_Is30()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'B' };
+            var products = new List<Sku>() { new Sku('B') };
 
             var price = cashier.Checkout(products);
 
@@ -87,7 +88,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_TwoBIs45()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'B', 'B' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('B'), 2));
 
             var price = cashier.Checkout(products);
 
@@ -98,7 +99,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_ThreeBIs75()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'B', 'B', 'B' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('B'), 3));
 
             var price = cashier.Checkout(products);
 
@@ -108,7 +109,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_FourBIs90()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'B', 'B', 'B', 'B' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('B'), 4));
 
             var price = cashier.Checkout(products);
 
@@ -119,7 +120,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneAOneB_Is80()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'A', 'B' };
+            var products = new List<Sku>() {new Sku('A'), new Sku('B') };
 
             var price = cashier.Checkout(products);
 
@@ -130,7 +131,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneATwoB_OutOfOrder_Is95()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'B', 'A', 'B' };
+            var products = new List<Sku>() { new Sku('B'), new Sku('A'), new Sku('B') };
 
             var price = cashier.Checkout(products);
 
@@ -141,7 +142,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneC_Is20()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'C' };
+            var products = new List<Sku>() { new Sku('C') };
 
             var price = cashier.Checkout(products);
 
@@ -152,7 +153,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_TwoC_Is20()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'C', 'C' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('C'), 2));
 
             var price = cashier.Checkout(products);
 
@@ -163,7 +164,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_OneD_Is15()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'D' };
+            var products = new List<Sku>() {new Sku('D') };
 
             var price = cashier.Checkout(products);
 
@@ -174,7 +175,7 @@ namespace SuperMarketPricing.Tests
         public void Cashier_TwoD_Is30()
         {
             var cashier = new Cashier(GetSkuPricingStrategies());
-            var products = new List<Sku>() { 'D', 'D' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('D'), 2));
 
             var price = cashier.Checkout(products);
 
@@ -187,7 +188,7 @@ namespace SuperMarketPricing.Tests
             var strategies = GetSkuPricingStrategies();
 
             var cashier = new Cashier(strategies);
-            var products = new List<Sku>() { 'E' };
+            var products = new List<Sku>() {new Sku('E') };
 
             var price = cashier.Checkout(products);
 
@@ -200,7 +201,7 @@ namespace SuperMarketPricing.Tests
             var strategies = GetSkuPricingStrategies();
 
             var cashier = new Cashier(strategies);
-            var products = new List<Sku>() { 'F', 'F' };
+            var products = new List<Sku>(Enumerable.Repeat(new Sku('F'), 2));
 
             var price = cashier.Checkout(products);
 
@@ -211,12 +212,12 @@ namespace SuperMarketPricing.Tests
         {
             return new Dictionary<Sku, IPricingStrategy>()
             {
-                { 'A', new XForYStrategy(50, 130, 3) },
-                { 'B', new XForYStrategy(30, 45, 2) },
-                { 'C', new RegularStrategy(20) },
-                { 'D', new RegularStrategy(15) },
-                { 'E', new PercentOffStrategy(100, 10) },
-                { 'F', new PercentOffStrategy(2.50m, 10) }
+                { new Sku('A'), new XForYStrategy(50, 130, 3) },
+                { new Sku('B'), new XForYStrategy(30, 45, 2) },
+                { new Sku('C'), new RegularStrategy(20) },
+                { new Sku('D'), new RegularStrategy(15) },
+                { new Sku('E'), new PercentOffStrategy(100, 10) },
+                { new Sku('F'), new PercentOffStrategy(2.50m, 10) }
             };
         }
     }
