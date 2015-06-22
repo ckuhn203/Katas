@@ -6,28 +6,28 @@
     /// </summary>
     public class XForYStrategy : IPricingStrategy
     {
-        private double _pricePerOne;
-        private double _pricePerX;
+        private decimal _pricePerOne;
+        private decimal _pricePerX;
         private int _x;
         
         /// <param name="price">The regular every day price.</param>
         /// <param name="pricePerX">Price per every <paramref name="x"/> items purchased.</param>
         /// <param name="x">The number of items that must be purchased to get the discount.</param>
-        public XForYStrategy(double price, double pricePerX, int x)
+        public XForYStrategy(decimal price, decimal pricePerX, int x)
         {
             _pricePerOne = price;
             _pricePerX = pricePerX;
             _x = x;
         }
 
-        public double GetPrice(int count)
+        public decimal GetPrice(int count)
         {
             if (count == 0)
             {
                 return 0;
             }
 
-            double result = 0;
+            decimal result = 0;
 
             while (count >= _x)
             {

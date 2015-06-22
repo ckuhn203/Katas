@@ -7,9 +7,9 @@ namespace SuperMarketPricing
     /// </summary>
     public class RegularStrategy : IPricingStrategy
     {
-        private double _price;
+        private decimal _price;
 
-        public RegularStrategy(double price)
+        public RegularStrategy(decimal price)
         {
             if (price < 0)
             {
@@ -19,7 +19,7 @@ namespace SuperMarketPricing
             _price = price;
         }
 
-        public double GetPrice(int count)
+        public decimal GetPrice(int count)
         {
             if (count < 0)
             {

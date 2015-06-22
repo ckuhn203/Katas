@@ -8,11 +8,11 @@ namespace SuperMarketPricing
     public class PercentOffStrategy : IPricingStrategy
     {
         private int _percentOff;
-        private double _price;
+        private decimal _price;
         
         /// <param name="price">The regular every day price.</param>
         /// <param name="percentOff">Whole number from 1 to 99.</param>
-        public PercentOffStrategy(double price, int percentOff)
+        public PercentOffStrategy(decimal price, int percentOff)
         {
             if (percentOff <= 0)
             {
@@ -33,7 +33,7 @@ namespace SuperMarketPricing
             _price = price;
         }
 
-        public double GetPrice(int count)
+        public decimal GetPrice(int count)
         {
             if (count < 0)
             {

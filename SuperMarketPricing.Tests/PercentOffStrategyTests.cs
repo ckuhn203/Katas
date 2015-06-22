@@ -19,11 +19,11 @@ namespace SuperMarketPricing.Tests
         [TestMethod]
         public void PercentOff_MultipleItems()
         {
-            var strat = new PercentOffStrategy(2.50, 10);
+            var strat = new PercentOffStrategy(2.50m, 10);
 
             var price = strat.GetPrice(2);
 
-            Assert.AreEqual(4.50, price);
+            Assert.AreEqual(4.50m, price);
         }
 
         [TestMethod]

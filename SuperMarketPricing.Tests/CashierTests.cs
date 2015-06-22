@@ -204,7 +204,7 @@ namespace SuperMarketPricing.Tests
 
             var price = cashier.Checkout(products);
 
-            Assert.AreEqual(4.50, price);
+            Assert.AreEqual(4.50m, price);
         }
 
         private static Dictionary<Sku, IPricingStrategy> GetSkuPricingStrategies()
@@ -216,7 +216,7 @@ namespace SuperMarketPricing.Tests
                 { 'C', new RegularStrategy(20) },
                 { 'D', new RegularStrategy(15) },
                 { 'E', new PercentOffStrategy(100, 10) },
-                { 'F', new PercentOffStrategy(2.50, 10) }
+                { 'F', new PercentOffStrategy(2.50m, 10) }
             };
         }
     }

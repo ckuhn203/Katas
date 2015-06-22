@@ -12,9 +12,9 @@ namespace SuperMarketPricing
             _pricingStrategies = pricingStrategies;
         }
 
-        public double Checkout(IList<Sku> products)
+        public decimal Checkout(IList<Sku> products)
         {
-            double result = 0;
+            decimal result = 0;
             foreach(var strat in _pricingStrategies)
             {
                 var prods = products.Where(p => p == strat.Key);

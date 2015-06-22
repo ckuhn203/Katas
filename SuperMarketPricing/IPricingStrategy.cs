@@ -2,6 +2,6 @@
 {
     public interface IPricingStrategy
     {
-        double GetPrice(int count);
+        decimal GetPrice(int count);
     }
 }

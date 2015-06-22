@@ -8,7 +8,7 @@ namespace SuperMarketPricing
     public class BogoStrategy : BuyXGetOneStrategy
     {
         /// <param name="price">Regular every day price.</param>
-        public BogoStrategy(double price)
+        public BogoStrategy(decimal price)
             : base(price, 2)
         { }
     }
@@ -18,12 +18,12 @@ namespace SuperMarketPricing
     /// </summary>
     public class BuyXGetOneStrategy : IPricingStrategy
     {
-        private double _price;
+        private decimal _price;
         private int _xToBuy;
 
         /// <param name="price">Regular everyday price.</param>
         /// <param name="xToBuy">Number of items that must be purchased to get the discount.</param>
-        public BuyXGetOneStrategy(double price, int xToBuy)
+        public BuyXGetOneStrategy(decimal price, int xToBuy)
         {
             if (price < 0)
             {
@@ -39,14 +39,14 @@ namespace SuperMarketPricing
             _xToBuy = xToBuy;
         }
 
-        public double GetPrice(int count)
+        public decimal GetPrice(int count)
         {
             if (count < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(count), count, "Cannot be less than zero.");
             }
 
-            double result = 0;
+            decimal result = 0;
 
             while (count - _xToBuy > 0)
             {
