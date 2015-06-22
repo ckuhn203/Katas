@@ -13,7 +13,7 @@ namespace SuperMarketPricing
         {
             if (value < MinValue || value > MaxValue)
             {
-                throw new ArgumentOutOfRangeException(nameof(value), value, $"Sku value must be between {MinValue} and {MaxValue}.");
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"{nameof(Sku)} value must be between {MinValue} and {MaxValue}.");
             }
 
             _value = value;
@@ -32,7 +32,7 @@ namespace SuperMarketPricing
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                throw new InvalidCastException($"Sku value must be between {MinValue} and {MaxValue}.", ex);
+                throw new InvalidCastException($"{nameof(Sku)} value must be between {MinValue} and {MaxValue}.", ex);
             }
 
         }
