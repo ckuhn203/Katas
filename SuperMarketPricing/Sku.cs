@@ -11,11 +11,6 @@ namespace SuperMarketPricing
             _value = value;
         }
 
-        public Sku(Sku sku)
-        {
-            _value = sku._value;
-        }
-
         public static explicit operator char (Sku v)
         {
             return v._value;

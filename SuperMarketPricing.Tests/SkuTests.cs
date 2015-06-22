@@ -56,9 +56,10 @@ namespace SuperMarketPricing.Tests
         public void Sku_CanCreateNewSkuFromExisting()
         {
             var sku1 = new Sku('A');
-            var sku2 = new Sku(sku1);
+            var sku2 = sku1;
 
             Assert.AreEqual(sku1, sku2);
+            Assert.AreNotSame(sku1, sku2);
         }
 
         [TestMethod]
