@@ -49,19 +49,14 @@ namespace SuperMarketPricing
 
         public override bool Equals(object obj)
         {
-            if (obj == null) { return false; }
+            var sku = obj as Sku?;
 
-            Sku sku;
-            try
-            {
-                sku = (Sku)obj;
-            }
-            catch
+            if (sku == null)
             {
                 return false;
             }
 
-            return _value == (long)sku;
+            return _value == ((Sku)sku)._value;
         }
 
         public override int GetHashCode()
