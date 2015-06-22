@@ -57,5 +57,10 @@ namespace SuperMarketPricing
         {
             return _value.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return _value.ToString();
+        }
     }
 }

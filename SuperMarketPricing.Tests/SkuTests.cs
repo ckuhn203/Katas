@@ -78,5 +78,12 @@ namespace SuperMarketPricing.Tests
 
             Assert.AreNotEqual(sku1, sku2);
         }
+
+        [TestMethod]
+        public void Sku_ToStringIsAsExpected()
+        {
+            var sku = new Sku('A');
+            Assert.AreEqual("A", sku.ToString());
+        }
     }
 }
