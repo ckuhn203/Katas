@@ -36,7 +36,15 @@ namespace Rubberduck.Katas.Network
         /// Must be an array of Length 4. 
         /// Index 0 is mapped to the first octet.
         /// </param>
+        /// <remarks>
+        /// This constructor expects the array to be in the same order a human would expect it in.
+        /// <example>
+        /// An IP Address of "11.22.33.44" corresponds to the array { 11, 22, 33, 44 }, regardless of the
+        /// Endianess of the host architecture.
+        /// </example>
+        /// </remarks>
         public Ip4Address(byte[] address)
+            : this() // Intialize Octets because the compiler isn't aware that setting the Address sets them too.
         {
             if (address == null)
             {
@@ -50,15 +58,9 @@ namespace Rubberduck.Katas.Network
                 throw new ArgumentException($"{nameof(address)} array must have a length of {expectedLength}.", nameof(address));
             }
 
-            // Set address because we must set all fields in the struct, else there is a compiler error.
-            // It seems the compiler isn't aware that they're really the same thing.
-            // We could call `:this()`, but I don't want to initalize it before arg checking.
-            Address = 0;
+            var bytes = BitConverter.IsLittleEndian ? address.Reverse().ToArray() : address;
 
-            Octet1 = address[0];
-            Octet2 = address[1];
-            Octet3 = address[2];
-            Octet4 = address[3];
+            Address = BitConverter.ToUInt32(bytes, 0);
         }
 
         /// <summary>
