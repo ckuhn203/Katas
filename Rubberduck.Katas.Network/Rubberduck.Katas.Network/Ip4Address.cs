@@ -144,46 +144,15 @@ namespace Rubberduck.Katas.Network
         }
 
         /// <summary>
-        /// Compares the current object with another object of the same type by doing a byte by byte comparison of the Octets.
+        /// Compares the current object with another object of the same type.
         /// </summary>
         /// <returns>
         /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
         /// </returns>
         /// <param name="other">An Ip4Address to compare with this object.</param>
-        /// <remarks>
-        /// Comparing the <seealso cref="Address"/> is not sufficient because it represents 4 bytes (Octets) of data, not a single integer.
-        /// Therefore, this implementation does an Octet by Octet comparison.
-        /// </remarks>
         public int CompareTo(Ip4Address other)
         {
-            if (this.Equals(other))
-            {
-                return 0;
-            }
-
-            var octet1Comparison = Octet1.CompareTo(other.Octet1);
-
-            if (octet1Comparison != 0)
-            {
-                return octet1Comparison;
-            }
-
-            var octet2Comparison = Octet2.CompareTo(other.Octet2);
-
-            if (octet2Comparison != 0)
-            {
-                return octet2Comparison;
-            }
-
-            var octet3Comparison = Octet3.CompareTo(other.Octet3);
-
-            if (octet3Comparison != 0)
-            {
-                return octet3Comparison;
-            }
-
-            // Should never return 0 at this point, because we checked very early if they were equal.
-            return Octet4.CompareTo(other.Octet4);
+            return Address.CompareTo(other.Address);
         }
 
         /// <summary>
