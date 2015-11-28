@@ -96,5 +96,52 @@ namespace Rubberduck.Katas.Network.Tests
 
             Assert.AreEqual("10.10.1.1", ip.ToString());
         }
+
+        [TestMethod]
+        public void WhenTwoIpAddressesAreTheSame_TheyAreEqual()
+        {
+            var ip1 = new Ip4Address("10.10.1.1");
+            var ip2 = new Ip4Address("10.10.1.1");
+
+            //Assert.AreEqual seems to bypass the Equals method somehow.
+            Assert.IsTrue(ip1.Equals(ip2));
+        }
+
+        [TestMethod]
+        public void WhenTwoIpAddressesAreNotTheSame_TheyAreNotEqual()
+        {
+            var ip1 = new Ip4Address("10.10.1.1");
+            var ip2 = new Ip4Address("192.10.1.1");
+
+            //Assert.AreEqual seems to bypass the Equals method somehow.
+            Assert.IsFalse(ip1.Equals(ip2));
+        }
+
+        [TestMethod]
+        public void CompareTo_GreaterThan()
+        {
+            var ip1 = new Ip4Address("10.10.0.1");
+            var ip2 = new Ip4Address("10.9.1.2");
+
+            Assert.AreEqual(1, ip1.CompareTo(ip2));
+        }
+
+        [TestMethod]
+        public void CompareTo_LessThan()
+        {
+            var ip1 = new Ip4Address("10.9.1.2");
+            var ip2 = new Ip4Address("10.10.0.0");
+
+            Assert.AreEqual(-1, ip1.CompareTo(ip2));
+        }
+
+        [TestMethod]
+        public void CompareTo_Equal()
+        {
+            var ip1 = new Ip4Address("10.10.1.1");
+            var ip2 = new Ip4Address("10.10.1.1");
+
+            Assert.AreEqual(0,ip1.CompareTo(ip2));
+        }
     }
 }

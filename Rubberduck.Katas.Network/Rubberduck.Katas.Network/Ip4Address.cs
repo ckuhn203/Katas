@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 
 namespace Rubberduck.Katas.Network
 {
     [StructLayout(LayoutKind.Explicit)]
-    public struct Ip4Address
+    public struct Ip4Address : IEquatable<Ip4Address>, IComparable<Ip4Address>
     {
         /// <summary>
         /// Represents the Base Ten IPv4 address as a raw integer.
@@ -99,6 +100,70 @@ namespace Rubberduck.Katas.Network
             }
 
             return address.Split('.').Select(Byte.Parse).ToArray();
+        }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+        /// </returns>
+        /// <param name="other">An object to compare with this object.</param>
+        public bool Equals(Ip4Address other)
+        {
+            return Address.Equals(other.Address);
+        }
+
+        /// <summary>
+        /// Compares the current object with another object of the same type.
+        /// </summary>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+        /// </returns>
+        /// <param name="other">An object to compare with this object.</param>
+        public int CompareTo(Ip4Address other)
+        {
+            if (this.Equals(other))
+            {
+                return 0;
+            }
+
+            if (Octet1 > other.Octet1)
+            {
+                return 1;
+            }
+
+            if (Octet1 < other.Octet1)
+            {
+                return -1;
+            }
+
+            if (Octet2 > other.Octet2)
+            {
+                return 1;
+            }
+
+            if (Octet2 < other.Octet2)
+            {
+                return -1;
+            }
+
+            if (Octet3 > other.Octet3)
+            {
+                return 1;
+            }
+
+            if (Octet3 < other.Octet3)
+            {
+                return -1;
+            }
+
+            if (Octet4 > other.Octet4)
+            {
+                return 1;
+            }
+
+            return -1;
         }
 
         public override string ToString()
