@@ -18,9 +18,44 @@ namespace Rubberduck.Katas.Network.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WhenStringHasSpaces_ThrowsArgException()
+        {
+            new Ip4Address("1 . 2 . 3 . 4");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WhenStringIsMalformed_ThrowsArgException()
+        {
+            new Ip4Address("10.10.1..");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WhenStringHasAlphaChars_ThrowsArgException()
+        {
+            new Ip4Address("10.10.A.1");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (ArgumentNullException))]
+        public void WhenByteArrayArgIsNull_ThrowsNullArgException()
+        {
+            new Ip4Address((byte[])null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenStringArgIsNull_ThrowsNullArgException()
+        {
+            new Ip4Address((string)null);
+        }
+
+        [TestMethod]
         public void CanCreateFromByteArray()
         {
-            Ip4Address ip = new Ip4Address(new byte[] {192, 10, 1, 1});
+            var ip = new Ip4Address(new byte[] {192, 10, 1, 1});
 
             Assert.AreEqual(192, ip.Octet1);
             Assert.AreEqual(10, ip.Octet2);
@@ -32,14 +67,14 @@ namespace Rubberduck.Katas.Network.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void ByteArrayLengthCannotBeLessThan4()
         {
-            var ip = new Ip4Address(new byte[] {});
+            new Ip4Address(new byte[] {});
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ByteArrayLengthCannotBeGreaterThan4()
         {
-            var ip = new Ip4Address(new byte[] {1, 1, 1, 1, 1});
+            new Ip4Address(new byte[] {1, 1, 1, 1, 1});
         }
 
         [TestMethod]

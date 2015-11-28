@@ -1,32 +1,30 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace Rubberduck.Katas.Network
 {
     [StructLayout(LayoutKind.Explicit)]
     public struct Ip4Address
     {
-        [FieldOffset(0)] public byte Octet1;
-        [FieldOffset(1)] public byte Octet2;
-        [FieldOffset(2)] public byte Octet3;
-        [FieldOffset(3)] public byte Octet4;
-
         /// <summary>
-        /// Represents the Base Ten IPv4 address.
+        /// Represents the Base Ten IPv4 address as a raw integer.
         /// </summary>
         /// <remarks>Overlays the Octet fields, so changing this value changes the Octets & vice versa.</remarks>
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        [FieldOffset(0)] private UInt32 Address;
+        [FieldOffset(0)]
+        // ReSharper disable once BuiltInTypeReferenceStyle
+        public readonly UInt32 Address;
 
-        /// <summary>
-        /// Must be a valid IPv4 address.
-        /// </summary>
-        /// <param name="address"></param>
-        public Ip4Address(string address)
-            :this(address.Split('.').Select(a => Byte.Parse(a)).ToArray())
-        { }
+        // Each Octet is mapped to a byte of the address.
+        [FieldOffset(0)]
+        public readonly byte Octet1;
+        [FieldOffset(1)]
+        public readonly byte Octet2;
+        [FieldOffset(2)]
+        public readonly byte Octet3;
+        [FieldOffset(3)]
+        public readonly byte Octet4;
 
         /// <summary>
         /// Creates a new Ip4Address from a byte array.
@@ -36,14 +34,23 @@ namespace Rubberduck.Katas.Network
         /// Index 0 is mapped to the first octet.
         /// </param>
         public Ip4Address(byte[] address)
-            :this()
         {
+            if (address == null)
+            {
+                throw new ArgumentNullException(nameof(address));
+            }
+
             const int expectedLength = 4;
 
             if (address.Length != expectedLength)
             {
                 throw new ArgumentException($"{nameof(address)} array must have a length of {expectedLength}.", nameof(address));
             }
+
+            // Set address because we must set all fields in the struct, else there is a compiler error.
+            // It seems the compiler isn't aware that they're really the same thing.
+            // We could call `:this()`, but I don't want to initalize it before arg checking.
+            Address = 0;
 
             Octet1 = address[0];
             Octet2 = address[1];
@@ -58,9 +65,40 @@ namespace Rubberduck.Katas.Network
         /// UInt32.MaxValue results in an IP of "255.255.255.255".
         /// </param>
         public Ip4Address(UInt32 address)
-            :this()
+            : this()
         {
             Address = address;
+        }
+
+        /// <summary>
+        /// Creates a new Ip4Address from a well formed IP address. i.e. "10.10.1.255"
+        /// </summary>
+        /// <param name="address"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException">If the <paramref name="address"/> is not a valid IPv4 address.</exception>
+        public Ip4Address(string address)
+            : this(ParseStringAddress(address))
+        { }
+
+        // Using a private method because this work must be done prior to passing it off to a chained ctor call.
+        private static byte[] ParseStringAddress(string address)
+        {
+            if (address == null)
+            {
+                throw new ArgumentNullException(nameof(address));
+            }
+
+            // Validation pattern shamelessly borrowed from http://www.regextester.com/22
+            // It validates not only the format, but the number ranges too, 
+            // so by time we're casting to a byte, it's a safe operation.
+            var ipRegex = new Regex(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
+
+            if (!ipRegex.IsMatch(address))
+            {
+                throw new ArgumentException($"{address} is not a valid IPv4 address.", nameof(address));
+            }
+
+            return address.Split('.').Select(Byte.Parse).ToArray();
         }
 
         public override string ToString()
