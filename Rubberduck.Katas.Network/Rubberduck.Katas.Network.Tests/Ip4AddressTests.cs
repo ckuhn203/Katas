@@ -103,8 +103,10 @@ namespace Rubberduck.Katas.Network.Tests
             var ip1 = new Ip4Address("10.10.1.1");
             var ip2 = new Ip4Address("10.10.1.1");
 
-            //Assert.AreEqual seems to bypass the Equals method somehow.
+            //Assert.AreEqual calls Object.Equals(Object), so test both IEquatable & Object.Equals override.
             Assert.IsTrue(ip1.Equals(ip2));
+            Assert.AreEqual(ip1, ip2);
+            Assert.IsTrue(ip1 == ip2);
         }
 
         [TestMethod]
@@ -113,8 +115,10 @@ namespace Rubberduck.Katas.Network.Tests
             var ip1 = new Ip4Address("10.10.1.1");
             var ip2 = new Ip4Address("192.10.1.1");
 
-            //Assert.AreEqual seems to bypass the Equals method somehow.
+            //Assert.AreEqual calls Object.Equals(Object), so test both IEquatable & Object.Equals override.
             Assert.IsFalse(ip1.Equals(ip2));
+            Assert.AreNotEqual(ip1, ip2);
+            Assert.IsFalse(ip1 == ip2);
         }
 
         [TestMethod]

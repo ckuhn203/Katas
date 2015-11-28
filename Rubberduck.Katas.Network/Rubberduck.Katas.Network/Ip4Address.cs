@@ -103,6 +103,23 @@ namespace Rubberduck.Katas.Network
         }
 
         /// <summary>
+        /// Indicates whether this instance and a specified object are equal.
+        /// </summary>
+        /// <returns>
+        /// true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false. 
+        /// </returns>
+        /// <param name="obj">The object to compare with the current instance. </param>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Ip4Address))
+            {
+                return false;
+            }
+
+            return this.Equals((Ip4Address) obj);
+        }
+
+        /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <returns>
@@ -114,13 +131,27 @@ namespace Rubberduck.Katas.Network
             return Address.Equals(other.Address);
         }
 
+        public static bool operator ==(Ip4Address ip1, Ip4Address ip2)
+        {
+            return ip1.Equals(ip2);
+        }
+
+        public static bool operator !=(Ip4Address ip1, Ip4Address ip2)
+        {
+            return !(ip1 == ip2);
+        }
+
         /// <summary>
-        /// Compares the current object with another object of the same type.
+        /// Compares the current object with another object of the same type by doing a byte by byte comparison of the Octets.
         /// </summary>
         /// <returns>
         /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
         /// </returns>
-        /// <param name="other">An object to compare with this object.</param>
+        /// <param name="other">An Ip4Address to compare with this object.</param>
+        /// <remarks>
+        /// Comparing the <seealso cref="Address"/> is not sufficient because it represents 4 bytes (Octets) of data, not a single integer.
+        /// Therefore, this implementation does an Octet by Octet comparison.
+        /// </remarks>
         public int CompareTo(Ip4Address other)
         {
             if (this.Equals(other))
@@ -128,42 +159,40 @@ namespace Rubberduck.Katas.Network
                 return 0;
             }
 
-            if (Octet1 > other.Octet1)
+            var octet1Comparison = Octet1.CompareTo(other.Octet1);
+
+            if (octet1Comparison != 0)
             {
-                return 1;
+                return octet1Comparison;
             }
 
-            if (Octet1 < other.Octet1)
+            var octet2Comparison = Octet2.CompareTo(other.Octet2);
+
+            if (octet2Comparison != 0)
             {
-                return -1;
+                return octet2Comparison;
             }
 
-            if (Octet2 > other.Octet2)
+            var octet3Comparison = Octet3.CompareTo(other.Octet3);
+
+            if (octet3Comparison != 0)
             {
-                return 1;
+                return octet3Comparison;
             }
 
-            if (Octet2 < other.Octet2)
-            {
-                return -1;
-            }
+            // Should never return 0 at this point, because we checked very early if they were equal.
+            return Octet4.CompareTo(other.Octet4);
+        }
 
-            if (Octet3 > other.Octet3)
-            {
-                return 1;
-            }
-
-            if (Octet3 < other.Octet3)
-            {
-                return -1;
-            }
-
-            if (Octet4 > other.Octet4)
-            {
-                return 1;
-            }
-
-            return -1;
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A 32-bit signed integer that is the hash code for this instance.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return Address.GetHashCode();
         }
 
         public override string ToString()
