@@ -5,6 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace Rubberduck.Katas.Network
 {
+    /// <summary>
+    /// A struct that represents an IPv4 address.
+    /// </summary>
+    /// <remarks>
+    /// This structure was created an a learning exercise.
+    /// It assumes a Little Endian architecture and ***will not work*** on a system with Big Endian architecture.
+    /// For a proper implementation, use the <see cref="System.Net.IPAddress"/> class.
+    /// </remarks>
     [StructLayout(LayoutKind.Explicit)]
     public struct Ip4Address : IEquatable<Ip4Address>, IComparable<Ip4Address>
     {
