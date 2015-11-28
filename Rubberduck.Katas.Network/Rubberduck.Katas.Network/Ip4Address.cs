@@ -113,12 +113,7 @@ namespace Rubberduck.Katas.Network
         /// <param name="obj">The object to compare with the current instance. </param>
         public override bool Equals(object obj)
         {
-            if (!(obj is Ip4Address))
-            {
-                return false;
-            }
-
-            return this.Equals((Ip4Address)obj);
+            return (obj is Ip4Address) && this.Equals((Ip4Address)obj);
         }
 
         /// <summary>
