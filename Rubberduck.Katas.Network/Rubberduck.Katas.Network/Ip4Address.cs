@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -116,7 +117,7 @@ namespace Rubberduck.Katas.Network
                 return false;
             }
 
-            return this.Equals((Ip4Address) obj);
+            return this.Equals((Ip4Address)obj);
         }
 
         /// <summary>
@@ -198,6 +199,18 @@ namespace Rubberduck.Katas.Network
         public override string ToString()
         {
             return $"{Octet1}.{Octet2}.{Octet3}.{Octet4}";
+        }
+
+        /// <summary>
+        /// Returns the Octets in the form of a byte array. 
+        /// </summary>
+        /// <returns>
+        /// A byte array of length 4, containing the Octets of the address.
+        /// <see cref="Octet1"/> is mapped to index 0 of the array.
+        /// </returns>
+        public byte[] ToByteArray()
+        {
+            return new byte[] { Octet1, Octet2, Octet3, Octet4 };
         }
     }
 }

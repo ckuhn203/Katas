@@ -39,7 +39,14 @@ namespace Rubberduck.Katas.Network.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WhenStringIsWellFormedButNotAValidIpAddress_ThrowsArgException()
+        {
+            new Ip4Address("123.456.789.999");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void WhenByteArrayArgIsNull_ThrowsNullArgException()
         {
             new Ip4Address((byte[])null);
@@ -53,28 +60,27 @@ namespace Rubberduck.Katas.Network.Tests
         }
 
         [TestMethod]
-        public void CanCreateFromByteArray()
+        public void CanCreateFromByteArrayAndGetEquivalentArrayBack()
         {
-            var ip = new Ip4Address(new byte[] {192, 10, 1, 1});
+            var expected = new byte[] { 192, 10, 1, 1 };
 
-            Assert.AreEqual(192, ip.Octet1);
-            Assert.AreEqual(10, ip.Octet2);
-            Assert.AreEqual(1, ip.Octet3);
-            Assert.AreEqual(1, ip.Octet4);
+            var ip = new Ip4Address(expected);
+
+            CollectionAssert.AreEqual(expected, ip.ToByteArray());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ByteArrayLengthCannotBeLessThan4()
         {
-            new Ip4Address(new byte[] {});
+            new Ip4Address(new byte[] { 192, 10, 1 });
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ByteArrayLengthCannotBeGreaterThan4()
         {
-            new Ip4Address(new byte[] {1, 1, 1, 1, 1});
+            new Ip4Address(new byte[] { 1, 1, 1, 1, 1 });
         }
 
         [TestMethod]
@@ -92,7 +98,7 @@ namespace Rubberduck.Katas.Network.Tests
         [TestMethod]
         public void ToStringReturnsExpectedResult()
         {
-            var ip = new Ip4Address(new byte[] {10, 10, 1, 1});
+            var ip = new Ip4Address(new byte[] { 10, 10, 1, 1 });
 
             Assert.AreEqual("10.10.1.1", ip.ToString());
         }
@@ -118,7 +124,7 @@ namespace Rubberduck.Katas.Network.Tests
             //Assert.AreEqual calls Object.Equals(Object), so test both IEquatable & Object.Equals override.
             Assert.IsFalse(ip1.Equals(ip2));
             Assert.AreNotEqual(ip1, ip2);
-            Assert.IsFalse(ip1 == ip2);
+            Assert.IsTrue(ip1 != ip2);
         }
 
         [TestMethod]
@@ -145,7 +151,7 @@ namespace Rubberduck.Katas.Network.Tests
             var ip1 = new Ip4Address("10.10.1.1");
             var ip2 = new Ip4Address("10.10.1.1");
 
-            Assert.AreEqual(0,ip1.CompareTo(ip2));
+            Assert.AreEqual(0, ip1.CompareTo(ip2));
         }
     }
 }
