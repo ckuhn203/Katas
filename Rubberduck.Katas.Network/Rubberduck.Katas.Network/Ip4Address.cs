@@ -17,13 +17,16 @@ namespace Rubberduck.Katas.Network
         public readonly UInt32 Address;
 
         // Each Octet is mapped to a byte of the address.
-        [FieldOffset(0)]
-        public readonly byte Octet1;
-        [FieldOffset(1)]
-        public readonly byte Octet2;
-        [FieldOffset(2)]
-        public readonly byte Octet3;
+        // IP addresses are in *Network* order (Big Endian), 
+        //  but Windows is a Little Endian architecture.
+        //  So we store them in reverse order.
         [FieldOffset(3)]
+        public readonly byte Octet1;
+        [FieldOffset(2)]
+        public readonly byte Octet2;
+        [FieldOffset(1)]
+        public readonly byte Octet3;
+        [FieldOffset(0)]
         public readonly byte Octet4;
 
         /// <summary>

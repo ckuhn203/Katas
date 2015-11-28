@@ -153,5 +153,33 @@ namespace Rubberduck.Katas.Network.Tests
 
             Assert.AreEqual(0, ip1.CompareTo(ip2));
         }
+
+        [TestMethod]
+        public void AddressReturnsCorrectBase10IpAddress()
+        {
+            // I used this tool http://www.kloth.net/services/iplocate.php
+            // to get the values used in this test. 
+
+            var ip = new Ip4Address("10.22.33.44");
+            
+            Assert.AreEqual(169222444u, ip.Address);
+        }
+
+        [TestMethod]
+        public void CorrectBase10IpAddressIsCreatedFromInteger()
+        {
+            // I used this tool http://www.kloth.net/services/iplocate.php
+            // to get the values used in this test. 
+
+            var expected = new byte[] {10, 22, 33, 44};
+
+            var ip = new Ip4Address(169222444);
+
+            Assert.AreEqual(expected[0], ip.Octet1);
+            Assert.AreEqual(expected[1], ip.Octet2);
+            Assert.AreEqual(expected[2], ip.Octet3);
+            Assert.AreEqual(expected[3], ip.Octet4);
+        }
+
     }
 }
